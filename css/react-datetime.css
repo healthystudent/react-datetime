@@ -2,6 +2,25 @@
  * https://github.com/YouCanBookMe/react-datetime
  */
 
+
+  .rdtTimeInput{
+    width: 65%;
+    height: 93%;
+    text-align: center;
+  }
+
+ .form-control {
+   width: 96%;
+   border: 0ex;
+   border-bottom: 1px;
+   padding: 0ex 12px;
+   width: 96%;
+   height: 2em;
+   -webkit-box-shadow: 0 1px 0px 0px gray;
+	   -moz-box-shadow: 0 1px 0px 0px gray;
+	        box-shadow: 0 1px 0px 0px gray;
+ }
+
 .rdt {
   position: relative;
 }
@@ -12,7 +31,7 @@
   padding: 4px;
   margin-top: 1px;
   z-index: 99999 !important;
-  background: #fff;
+  background: rgb(124, 124, 124);
   box-shadow: 0 1px 3px rgba(0,0,0,.1);
   border: 1px solid #f9f9f9;
 }
@@ -45,7 +64,7 @@
 .rdtPicker td.rdtMinute:hover,
 .rdtPicker td.rdtSecond:hover,
 .rdtPicker .rdtTimeToggle:hover {
-  background: #eeeeee;
+  background: #da8888;
   cursor: pointer;
 }
 .rdtPicker td.rdtOld,
