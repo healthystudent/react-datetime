@@ -1,6 +1,8 @@
 # react-datetime/forked!
 
 Install the library first by folling the instruction below.
+Version 2.16.3 
+
 Then go to node_modules\react-datetime\src\TimeView.js
 Replace the TimeView.js with the one from here.
 Also replace the node_modules\react-datetime\css\react-datetime.css file with the css file included here.
