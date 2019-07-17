@@ -1,4 +1,18 @@
-# react-datetime
+# react-datetime/forked!
+
+Install the library first by folling the instruction below.
+Then go to node_modules\react-datetime\src\TimeView.js
+Replace the TimeView.js with the one from here.
+Also replace the node_modules\react-datetime\css\react-datetime.css file with the css file included here.
+
+
+https://github.com/healthystudent/react-datetime/blob/master/src/TimeView.js
+https://github.com/healthystudent/react-datetime/blob/master/css/react-datetime.css
+
+
+############################################################################################
+
+
 
 [![Build Status](https://api.travis-ci.org/YouCanBookMe/react-datetime.svg?branch=master)](https://travis-ci.org/YouCanBookMe/react-datetime.svg?branch=master)
 [![npm version](https://badge.fury.io/js/react-datetime.svg)](http://badge.fury.io/js/react-datetime)
