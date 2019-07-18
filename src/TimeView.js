@@ -166,9 +166,13 @@ var DateTimePickerTime = createClass({
 		this._inputhours.select();
 	},
 	
-	reFocus: function () {
+	reFocusHour: function () {
 		//this[`_input${type}`].select();
 		this._inputhours.select();
+	},
+	reFocusMin: function () {
+		//this[`_input${type}`].select();
+		this._inputminutes.select();
 	},
 		
 	handleChange: function (e, action, type) {
@@ -177,8 +181,14 @@ var DateTimePickerTime = createClass({
 		if (manualInput > this.timeConstraints[type].max || manualInput === NaN || manualInput === undefined) {
 			
 			manualInput = 0;
-			this.reFocus();
+			//this.reFocus();
 			console.log(`_input${type}`);
+			if (type === 'hours') {
+				setTimeout(this.reFocusHour, 100);
+			}
+			else {
+				setTimeout(this.reFocusMin, 100);
+			}
 			
 		}
 		// else if (manualInput === NaN || manualInput === undefined) {
@@ -186,7 +196,7 @@ var DateTimePickerTime = createClass({
 		// 	this.reFocus;
 		// }
 		/* else */ // used if
-		else if (manualInput.length > 2) { //hour.length > 2
+		if (manualInput.length > 2) { //hour.length > 2
 			manualInput = manualInput.substr(-2);
 			manualInput = parseInt(manualInput);
 			let update = {};
