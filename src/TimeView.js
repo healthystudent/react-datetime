@@ -56,16 +56,18 @@ var DateTimePickerTime = createClass({
 				if ( value === 0 ) {
 					value = 12;
 				}
-			}
 			return React.createElement('div', { key: type, className: 'rdtCounter' }, [
-				React.createElement('span', { key: 'up', className: 'rdtBtn', onMouseDown: this.onStartClicking( 'increase', type ), onContextMenu: this.disableContextMenu }, '▲' ),
-				React.createElement('div', { key: 'c', className: 'rdtCount' }, value ),
-				React.createElement('span', { key: 'do', className: 'rdtBtn', onMouseDown: this.onStartClicking( 'decrease', type ), onContextMenu: this.disableContextMenu }, '▼' )
+				React.createElement('span', { key: 'up', className: 'rdtBtn', onMouseDown: this.onStartClicking('increase', type), onContextMenu: this.disableContextMenu }, '▲'),
+				React.createElement('div', { key: 'c', className: 'rdtCount' },
+					React.createElement('input', {
+						className: 'rdtTimeInput', type: 'text', value: value, onFocus: this.handleOnFocus,
+						ref: (el) => { this[`_input${type}`] = el; }, onChange: event => this.handleChange(event, 'manualEntry', type), onContextMenu: this.disableContextMenu
+					})),
+				React.createElement('span', { key: 'do', className: 'rdtBtn', onMouseDown: this.onStartClicking('decrease', type), onContextMenu: this.disableContextMenu }, '▼')
 			]);
 		}
 		return '';
 	},
-
 	renderDayPart: function() {
 		return React.createElement('div', { key: 'dayPart', className: 'rdtCounter' }, [
 			React.createElement('span', { key: 'up', className: 'rdtBtn', onMouseDown: this.onStartClicking( 'toggleDayPart', 'hours'), onContextMenu: this.disableContextMenu }, '▲' ),
@@ -159,6 +161,59 @@ var DateTimePickerTime = createClass({
 			React.createElement('th', { className: 'rdtSwitch', colSpan: 4, onClick: this.props.showView( 'days' ) }, date.format( this.props.dateFormat ) )
 		));
 	},
+		
+	componentDidMount: function () {
+		this._inputhours.select();
+	},
+	
+	reFocus: function () {
+		//this[`_input${type}`].select();
+		this._inputhours.select();
+	},
+		
+	handleChange: function (e, action, type) {
+		let me = this;
+		let manualInput = e.target.value;
+		if (manualInput > this.timeConstraints[type].max || manualInput === NaN || manualInput === undefined) {
+			
+			manualInput = 0;
+			this.reFocus();
+			console.log(`_input${type}`);
+			
+		}
+		// else if (manualInput === NaN || manualInput === undefined) {
+		// 	manualInput = 0;
+		// 	this.reFocus;
+		// }
+		/* else */ // used if
+		else if (manualInput.length > 2) { //hour.length > 2
+			manualInput = manualInput.substr(-2);
+			manualInput = parseInt(manualInput);
+			let update = {};
+			console.log(manualInput, action, type, "handleChange");
+			update[type] = me[action](type, manualInput);
+			me.setState(update);
+			console.log(update, type, typeof type, action, manualInput, 'updatefrom');
+			this.props.setTime(type.toString(), manualInput);
+			this.setState({ [type]: manualInput });
+			console.log(this.setState({ [type]: manualInput }));
+			console.log('thisprpsetTime setState');
+			//this.reFocus();
+		}
+		else {
+			manualInput = parseInt(manualInput, 10);
+			let update = {};
+			console.log(manualInput, action, type, "handleChange");
+			update[type] = me[action](type, manualInput);
+			me.setState(update);
+			console.log(update, type, typeof type, action, manualInput, 'updatefrom');
+			this.props.setTime(type.toString(), manualInput);
+			this.setState({ [type]: manualInput });
+			console.log(this.setState({ [type]: manualInput }));
+			console.log('thisprpsetTime setState');
+			//this.reFocus();
+		}
+	},
 
 	onStartClicking: function( action, type ) {
 		var me = this;
@@ -220,6 +275,18 @@ var DateTimePickerTime = createClass({
 			value = this.timeConstraints[ type ].max + 1 - ( this.timeConstraints[ type ].min - value );
 		return this.pad( type, value );
 	},
+	
+	manualEntry: function (type, hour) {
+		var value = parseInt(hour, 10);
+		if (isNaN(value)) {
+			value = 0;
+		}
+		else {
+			console.log(value, 'from_mE');
+			return this.pad(type, value);
+		}
+
+	},
 
 	pad: function( type, value ) {
 		var str = value + '';
@@ -227,6 +294,12 @@ var DateTimePickerTime = createClass({
 			str = '0' + str;
 		return str;
 	},
+	
+	handleOnFocus: function (e) {
+		e.target.select();
+		// console.log(this.refs.inputRef.value)
+		// this.refs.inputRef.value;
+	}
 });
 
 module.exports = DateTimePickerTime;
