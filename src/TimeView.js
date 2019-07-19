@@ -200,14 +200,14 @@ var DateTimePickerTime = createClass({
 			manualInput = manualInput.substr(-2);
 			manualInput = parseInt(manualInput);
 			let update = {};
-			console.log(manualInput, action, type, "handleChange");
+			//console.log(manualInput, action, type, "handleChange");
 			update[type] = me[action](type, manualInput);
 			me.setState(update);
-			console.log(update, type, typeof type, action, manualInput, 'updatefrom');
+			//console.log(update, type, typeof type, action, manualInput, 'updatefrom');
 			this.props.setTime(type.toString(), manualInput);
 			this.setState({ [type]: manualInput });
-			console.log(this.setState({ [type]: manualInput }));
-			console.log('thisprpsetTime setState');
+			//console.log(this.setState({ [type]: manualInput }));
+			//console.log('thisprpsetTime setState');
 			//this.reFocus();
 		}
 		else {
